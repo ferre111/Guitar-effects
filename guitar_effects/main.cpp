@@ -9,8 +9,8 @@ using namespace std;
 int main(int argc, char *argv[]){
     sf::SoundBuffer buffer;
     sf::Sound sound;
-    vector<int> vec;
-    if (!buffer.loadFromFile("C:\\Karol\\QT_projects\\guitar_effects\\sample.wav"))
+
+    if (!buffer.loadFromFile("C:\\Karol\\QT_projects\\guitar_effects\\Guitar-effects\\guitar_effects\\sample.wav"))
         return -1;
     cout << "dsfsdfsdfsdfsdf" << endl;
 
