@@ -32,10 +32,12 @@ DEPENDPATH += "..\SFML-2.5.1\include" #change this
 
 
 SOURCES += \
+    guitar_effects.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    guitar_effects.h \
     mainwindow.h
 
 FORMS += \
