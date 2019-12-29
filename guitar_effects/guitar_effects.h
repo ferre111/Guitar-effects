@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <SFML/Audio.hpp>
+#include <math.h>
 
 using namespace std;
 
@@ -19,10 +20,10 @@ public:
     Guitar_effects(string file);
     ~Guitar_effects();
 
-    bool load_buffer_from_sampels();
+    bool load_buffer_from_sampels(int c);
     bool save_buffer_to_file(string file);
     void set_buffer();
     void play();
 
-    void delay_effect(unsigned int delay, double factor);
+    void delay_effect(int delay, double factor);
 };

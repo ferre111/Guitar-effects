@@ -10,8 +10,9 @@ Guitar_effects::~Guitar_effects() {
 
 }
 
-bool Guitar_effects::load_buffer_from_sampels() {
-    return buffer.loadFromSamples(&samples_vec[0], buffer.getSampleCount(), buffer.getChannelCount(), buffer.getSampleRate());
+bool Guitar_effects::load_buffer_from_sampels(int d = -1) {
+    if (d == -1) return buffer.loadFromSamples(&samples_vec[0], buffer.getSampleCount(), buffer.getChannelCount(), buffer.getSampleRate());
+    else         return buffer.loadFromSamples(&samples_vec[0], count + ceil(count / d) * d, buffer.getChannelCount(), buffer.getSampleRate());
 }
 
 bool Guitar_effects::save_buffer_to_file(string file) {
@@ -26,24 +27,34 @@ void Guitar_effects::play() {
     sound.play();
 }
 
-void Guitar_effects::delay_effect(unsigned int delay, double factor) {
-    sf::Int16 calc;
-    double coefficient{ 1 };
-    int multiplier{ 1 };
 
-    for (unsigned int i{ 0 }; i < count; i++) {
-        if (i > delay * multiplier) {
-            multiplier++;
-            coefficient /= factor;
+void Guitar_effects::delay_effect(int delay, double factor) {
+    sf::Int16 calc{ 0 };
+    vector<double> coefficient{ 1 };
+    vector<unsigned int> multiplier { 0 };
+    vector<sf::Int16> buffer_ext;
+
+    for (unsigned int i{ 0 }; i < count + ceil(count / delay) * delay; i++) {
+        if (i >= count) {
+            buffer_ext.push_back(0);
         }
-        if (multiplier == 1) {
-            calc = *samples_p;
-            samples_vec.push_back(calc);
+        else buffer_ext.push_back(*(samples_p++));
+    }
+
+    const sf::Int16* samples_p_e = &buffer_ext[0];
+
+    for (unsigned int i{ 0 }; i < count + ceil(count/delay)*delay; i++) {
+        if (i > delay * (multiplier.back()+ 1) && i < count) {
+            multiplier.push_back(multiplier.back()+1);
+            coefficient.push_back(coefficient.back() / factor);
         }
-        else {
-            calc = *samples_p + coefficient * (*(samples_p - delay * (multiplier - 1) - 1));
-            samples_vec.push_back(calc);
+
+        for (unsigned int j{ 0 }; j < multiplier.size(); j++) {
+            calc += coefficient[j] * (*(samples_p_e - delay * multiplier[j]));
         }
-        samples_p++;
+
+        samples_vec.push_back(calc);
+        calc = 0;
+        samples_p_e++;
     }
 }
