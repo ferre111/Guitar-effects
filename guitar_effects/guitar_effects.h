@@ -17,9 +17,10 @@ private:
 
 public:
 
-    Guitar_effects(string file);
+    Guitar_effects();
     ~Guitar_effects();
 
+    bool load_from_file(string file);
     bool load_buffer_from_sampels(int c);
     bool save_buffer_to_file(string file);
     void set_buffer();

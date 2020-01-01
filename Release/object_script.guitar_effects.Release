@@ -1,0 +1,14 @@
+INPUT(
+./release\Karol.o
+./release\Obiektówka.o
+./release\III.o
+./release\WinMain.o
+./release\Karol.o
+./release\Obiektówka.o
+./release\III.o
+./release\WinMain.o
+./release\guitar_effects.o
+./release\main.o
+./release\mainwindow.o
+./release\moc_mainwindow.o
+);

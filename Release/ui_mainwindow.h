@@ -13,10 +13,13 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,6 +28,10 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *pushButton_Read;
+    QPushButton *pushButton_Play;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -32,12 +39,37 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(378, 185);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
+        verticalLayout = new QVBoxLayout(centralwidget);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        pushButton_Read = new QPushButton(centralwidget);
+        pushButton_Read->setObjectName(QStringLiteral("pushButton_Read"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(pushButton_Read->sizePolicy().hasHeightForWidth());
+        pushButton_Read->setSizePolicy(sizePolicy);
+
+        horizontalLayout->addWidget(pushButton_Read);
+
+        pushButton_Play = new QPushButton(centralwidget);
+        pushButton_Play->setObjectName(QStringLiteral("pushButton_Play"));
+        sizePolicy.setHeightForWidth(pushButton_Play->sizePolicy().hasHeightForWidth());
+        pushButton_Play->setSizePolicy(sizePolicy);
+
+        horizontalLayout->addWidget(pushButton_Play);
+
+
+        verticalLayout->addLayout(horizontalLayout);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
+        menubar->setGeometry(QRect(0, 0, 378, 21));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -51,6 +83,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        pushButton_Read->setText(QApplication::translate("MainWindow", "Read", Q_NULLPTR));
+        pushButton_Play->setText(QApplication::translate("MainWindow", "Play", Q_NULLPTR));
     } // retranslateUi
 
 };

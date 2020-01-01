@@ -1,22 +1,18 @@
-#include "mainwindow.h"
-#include "guitar_effects.h"
+#include <iostream>
+//#include <stdlib.h>
+#include <windows.h>
 
-#include <QApplication>
 #include <SFML/Audio.hpp>
+#include <QApplication>
+#include "guitar_effects.h"
+#include "mainwindow.h"
 
 using namespace std;
 
-int main(int argc, char *argv[]){
+int main(int argc, char* argv[]) {
 
-    Guitar_effects del("C:\\Karol\\QT_projects\\guitar_effects\\Guitar-effects\\guitar_effects\\C#3.wav");
-
-    int d = 10000;
-    del.delay_effect(d, sqrt(2));
-    if (!del.load_buffer_from_sampels(d)) return -1;
-    if (!del.save_buffer_to_file("C#3_e.wav")) return -1;
-    del.set_buffer();
-    del.play();
-
-    cin.ignore();
-    return 0;
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+    return a.exec();
 }

@@ -1,0 +1,14 @@
+INPUT(
+./debug\Karol.o
+./debug\Obiektówka.o
+./debug\III.o
+./debug\WinMain.o
+./debug\Karol.o
+./debug\Obiektówka.o
+./debug\III.o
+./debug\WinMain.o
+./debug\guitar_effects.o
+./debug\main.o
+./debug\mainwindow.o
+./debug\moc_mainwindow.o
+);
