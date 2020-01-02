@@ -11,6 +11,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->pushButton_Play->setEnabled(false);
     ui->pushButton_Save->setEnabled(false);
+
+//    ui->comboBox_Second->setEnabled(false);
+//    ui->comboBox_Third ->setEnabled(false);
+//    ui->comboBox_Fourth->setEnabled(false);
+
+    QStringList effects_list = {"---", "Delay", "Distortion"};
+
+    ui->comboBox_First ->addItems(effects_list);
+    ui->comboBox_Second->addItems(effects_list);
+    ui->comboBox_Third ->addItems(effects_list);
+    ui->comboBox_Fourth->addItems(effects_list);
 }
 
 MainWindow::~MainWindow()
@@ -34,11 +45,26 @@ void MainWindow::on_pushButton_Play_clicked()
         QMessageBox::warning(this, "Warning!", "File doesn't load properly!");
     }
 
-    int d = ui->dial_Delay->value();
-    double l = (ui->dial_Level->value())/100.0;
+    if (ui->comboBox_First->currentText() == "Delay") delay();
+    if (ui->comboBox_First->currentText() == "Distortion") distortion();
+//    if (ui->comboBox_First->currentText() == "Delay") goto Delay;
+//    if (ui->comboBox_First->currentText() == "Delay") goto Delay;
 
-    guitar_effects->delay_effect(d, l);
-    guitar_effects->load_buffer_from_sampels(d);
+    if (ui->comboBox_Second->currentText() == "Delay") delay();
+    if (ui->comboBox_Second->currentText() == "Distortion") distortion();
+//    if (ui->comboBox_Second->currentText() == "Delay") goto Delay;
+//    if (ui->comboBox_Second->currentText() == "Delay") goto Delay;
+
+    if (ui->comboBox_Third->currentText() == "Delay") delay();
+    if (ui->comboBox_Third->currentText() == "Distortion") distortion();
+//    if (ui->comboBox_Third->currentText() == "Delay") goto Delay;
+//    if (ui->comboBox_Third->currentText() == "Delay") goto Delay;
+
+    if (ui->comboBox_Fourth->currentText() == "Delay") delay();
+    if (ui->comboBox_Fourth->currentText() == "Distortion") distortion();
+//    if (ui->comboBox_Fourth->currentText() == "Delay") goto Delay;
+//    if (ui->comboBox_Fourth->currentText() == "Delay") goto Delay;
+
     guitar_effects->set_buffer();
     guitar_effects->play();
 }
@@ -53,4 +79,24 @@ void MainWindow::on_pushButton_Save_clicked()
         QMessageBox::information(this, "Infromation", "File save properly.");
     }
 
+}
+
+void MainWindow::delay(void){
+    int d = ui->dial_Delay_Period->value();
+    double l = (ui->dial_Delay_Level->value())/100.0;
+    double v = (ui->dial_Delay_Volume->value())/1000.0;
+
+    guitar_effects->delay_effect(d, l, v);
+    guitar_effects->load_buffer_from_sampels(d);
+
+}
+
+void MainWindow::distortion(void){
+    double b = (ui->dial_Distorion_Blend->value())/100.0;
+    double v = (ui->dial_Disortion_Volume->value())/1000.0;
+
+    qDebug() << b << endl << v << endl << endl;
+
+    guitar_effects->distortion_effect(b, v);
+    guitar_effects->load_buffer_from_sampels(-1);
 }

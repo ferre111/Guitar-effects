@@ -2,7 +2,8 @@
 
 #include <iostream>
 #include <SFML/Audio.hpp>
-#include <math.h>
+#define _USE_MATH_DEFINES
+#include <cmath>
 
 using namespace std;
 
@@ -23,8 +24,9 @@ public:
     bool load_from_file(string file);
     bool load_buffer_from_sampels(int c);
     bool save_buffer_to_file(string file);
-    void set_buffer();
-    void play();
+    void set_buffer(void);
+    void play(void);
 
-    void delay_effect(int delay, double factor);
+    void delay_effect(int delay, double factor, double volume);
+    void distortion_effect(double blend, double volume);
 };

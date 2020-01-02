@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include "guitar_effects.h"
 
@@ -34,5 +33,7 @@ private:
     Ui::MainWindow *ui;
     Guitar_effects *guitar_effects;
     std::string file_name;
+
+    void delay(void);
+    void distortion(void);
 };
-#endif // MAINWINDOW_H
