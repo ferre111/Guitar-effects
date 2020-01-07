@@ -16,12 +16,17 @@ MainWindow::MainWindow(QWidget *parent)
 //    ui->comboBox_Third ->setEnabled(false);
 //    ui->comboBox_Fourth->setEnabled(false);
 
-    QStringList effects_list = {"---", "Delay", "Distortion"};
+    QStringList effects_list = {"---", "Delay", "Distortion", "Low-pass filter", "High-pass filter"};
 
     ui->comboBox_First ->addItems(effects_list);
     ui->comboBox_Second->addItems(effects_list);
     ui->comboBox_Third ->addItems(effects_list);
     ui->comboBox_Fourth->addItems(effects_list);
+
+    ui->label_Delay->setAlignment      (Qt::AlignCenter);
+    ui->label_Distortion->setAlignment (Qt::AlignCenter);
+    ui->label_Low_Filter->setAlignment (Qt::AlignCenter);
+    ui->label_High_Filter->setAlignment(Qt::AlignCenter);
 }
 
 MainWindow::~MainWindow()
@@ -45,25 +50,25 @@ void MainWindow::on_pushButton_Play_clicked()
         QMessageBox::warning(this, "Warning!", "File doesn't load properly!");
     }
 
-    if (ui->comboBox_First->currentText() == "Delay") delay();
-    if (ui->comboBox_First->currentText() == "Distortion") distortion();
-//    if (ui->comboBox_First->currentText() == "Delay") goto Delay;
-//    if (ui->comboBox_First->currentText() == "Delay") goto Delay;
+    if (ui->comboBox_First->currentText() == "Delay")             delay();
+    if (ui->comboBox_First->currentText() == "Distortion")        distortion();
+    if (ui->comboBox_First->currentText() == "Low-pass filter")   filter_LPF();
+    if (ui->comboBox_First->currentText() == "High-pass filter")  filter_HPF();
 
-    if (ui->comboBox_Second->currentText() == "Delay") delay();
-    if (ui->comboBox_Second->currentText() == "Distortion") distortion();
-//    if (ui->comboBox_Second->currentText() == "Delay") goto Delay;
-//    if (ui->comboBox_Second->currentText() == "Delay") goto Delay;
+    if (ui->comboBox_Second->currentText() == "Delay")            delay();
+    if (ui->comboBox_Second->currentText() == "Distortion")       distortion();
+    if (ui->comboBox_Second->currentText() == "Low-pass filter")  filter_LPF();
+    if (ui->comboBox_Second->currentText() == "High-pass filter") filter_HPF();
 
-    if (ui->comboBox_Third->currentText() == "Delay") delay();
-    if (ui->comboBox_Third->currentText() == "Distortion") distortion();
-//    if (ui->comboBox_Third->currentText() == "Delay") goto Delay;
-//    if (ui->comboBox_Third->currentText() == "Delay") goto Delay;
+    if (ui->comboBox_Third->currentText() == "Delay")             delay();
+    if (ui->comboBox_Third->currentText() == "Distortion")        distortion();
+    if (ui->comboBox_Third->currentText() == "Low-pass filter")   filter_LPF();
+    if (ui->comboBox_Third->currentText() == "High-pass filter")  filter_HPF();
 
-    if (ui->comboBox_Fourth->currentText() == "Delay") delay();
-    if (ui->comboBox_Fourth->currentText() == "Distortion") distortion();
-//    if (ui->comboBox_Fourth->currentText() == "Delay") goto Delay;
-//    if (ui->comboBox_Fourth->currentText() == "Delay") goto Delay;
+    if (ui->comboBox_Fourth->currentText() == "Delay")            delay();
+    if (ui->comboBox_Fourth->currentText() == "Distortion")       distortion();
+    if (ui->comboBox_Fourth->currentText() == "Low-pass filter")  filter_LPF();
+    if (ui->comboBox_Fourth->currentText() == "High-pass filter") filter_HPF();
 
     guitar_effects->set_buffer();
     guitar_effects->play();
@@ -83,7 +88,7 @@ void MainWindow::on_pushButton_Save_clicked()
 
 void MainWindow::delay(void){
     int d = ui->dial_Delay_Period->value();
-    double l = (ui->dial_Delay_Level->value())/100.0;
+    double l = abs((ui->dial_Delay_Level->value())/100.0);
     double v = (ui->dial_Delay_Volume->value())/1000.0;
 
     guitar_effects->delay_effect(d, l, v);
@@ -95,8 +100,30 @@ void MainWindow::distortion(void){
     double b = (ui->dial_Distorion_Blend->value())/100.0;
     double v = (ui->dial_Disortion_Volume->value())/1000.0;
 
-    qDebug() << b << endl << v << endl << endl;
-
     guitar_effects->distortion_effect(b, v);
-    guitar_effects->load_buffer_from_sampels(-1);
+    guitar_effects->load_buffer_from_sampels();
 }
+
+void MainWindow::filter_LPF(void){
+    double f = (ui->dial_Low_Filter->value())/1000.0;
+
+    qDebug() << f << endl;
+
+    guitar_effects->filter_LPF_effect(f);
+    guitar_effects->load_buffer_from_sampels();
+}
+
+void MainWindow::filter_HPF(void){
+    double f = (ui->dial_High_Filter->value())/1000.0;
+
+    qDebug() << f << endl;
+
+    guitar_effects->filter_HPF_effect(f);
+    guitar_effects->load_buffer_from_sampels();
+}
+
+//void MainWindow::on_dial_Delay_Period_sliderMoved(int position)
+//{
+//    if (guitar_effects->get_sample_rate()) ui->lcdNumber->display((int)(position / guitar_effects->get_sample_rate()));
+//    qDebug() << guitar_effects->get_sample_rate();
+//}

@@ -32,11 +32,13 @@ DEPENDPATH += "..\SFML-2.5.1\include" #change this
 
 
 SOURCES += \
+    FIR-filter-class/filt.cpp \
     guitar_effects.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    FIR-filter-class/filt.h \
     guitar_effects.h \
     mainwindow.h
 

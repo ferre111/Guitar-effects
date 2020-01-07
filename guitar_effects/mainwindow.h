@@ -36,4 +36,6 @@ private:
 
     void delay(void);
     void distortion(void);
+    void filter_LPF(void);
+    void filter_HPF(void);
 };

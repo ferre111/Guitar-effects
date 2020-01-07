@@ -15,10 +15,17 @@ bool Guitar_effects::load_from_file(string file) {
     return 1;
 }
 
-bool Guitar_effects::load_buffer_from_sampels(int d = -1) {
+bool Guitar_effects::load_buffer_from_sampels() {
     bool status;
-    if (d == -1) status = buffer.loadFromSamples(&samples_vec[0], buffer.getSampleCount(), buffer.getChannelCount(), buffer.getSampleRate());
-    else         status = buffer.loadFromSamples(&samples_vec[0], count + ceil(count / d) * d, buffer.getChannelCount(), buffer.getSampleRate());
+    status =  buffer.loadFromSamples(&samples_vec[0], buffer.getSampleCount(), buffer.getChannelCount(), buffer.getSampleRate());
+    samples_p = buffer.getSamples();
+    count = buffer.getSampleCount();
+    return status;
+}
+
+bool Guitar_effects::load_buffer_from_sampels(int d) {
+    bool status;
+    status =  buffer.loadFromSamples(&samples_vec[0], count + ceil(count / d) * d, buffer.getChannelCount(), buffer.getSampleRate());
     samples_p = buffer.getSamples();
     count = buffer.getSampleCount();
     return status;
@@ -34,6 +41,10 @@ void Guitar_effects::set_buffer(void) {
 
 void Guitar_effects::play(void) {
     sound.play();
+}
+
+unsigned int Guitar_effects::get_sample_rate(void){
+    return buffer.getSampleRate();
 }
 
 
@@ -79,6 +90,32 @@ void Guitar_effects::distortion_effect(double blend, double volume) {
         calc = (((2.0 / M_PI * atan(*samples_p) * *samples_p) * blend + (*samples_p / blend)) / 2) * volume;
 
         samples_vec.push_back(calc);
+
+        samples_p++;
+    }
+}
+
+void Guitar_effects::filter_LPF_effect(double freq) {
+
+    Filter filt(LPF, 51, buffer.getSampleRate()/1000.0, freq);
+
+    samples_vec.clear();
+
+    for (unsigned int i{ 0 }; i < count; i++) {
+        samples_vec.push_back(filt.do_sample(*samples_p));
+
+        samples_p++;
+    }
+}
+
+void Guitar_effects::filter_HPF_effect(double freq) {
+
+    Filter filt(HPF, 51, buffer.getSampleRate()/1000.0, freq);
+
+    samples_vec.clear();
+
+    for (unsigned int i{ 0 }; i < count; i++) {
+        samples_vec.push_back(filt.do_sample(*samples_p));
 
         samples_p++;
     }
