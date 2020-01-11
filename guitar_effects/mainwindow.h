@@ -29,6 +29,8 @@ private slots:
 
     void on_pushButton_Save_clicked();
 
+    void on_pushButton_Play_Original_Track_clicked();
+
 private:
     Ui::MainWindow *ui;
     Guitar_effects *guitar_effects;

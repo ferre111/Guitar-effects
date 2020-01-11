@@ -7,10 +7,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    setWindowTitle("Guitar effects");
+    setWindowIcon(QPixmap(":/new/icon/icon.png"));
+
     guitar_effects = new Guitar_effects;
 
     ui->pushButton_Play->setEnabled(false);
     ui->pushButton_Save->setEnabled(false);
+    ui->pushButton_Play_Original_Track->setEnabled(false);
 
 //    ui->comboBox_Second->setEnabled(false);
 //    ui->comboBox_Third ->setEnabled(false);
@@ -42,6 +46,7 @@ void MainWindow::on_pushButton_Open_clicked()
 
     ui->pushButton_Play->setEnabled(true);
     ui->pushButton_Save->setEnabled(true);
+    ui->pushButton_Play_Original_Track->setEnabled(true);
 }
 
 void MainWindow::on_pushButton_Play_clicked()
@@ -84,6 +89,16 @@ void MainWindow::on_pushButton_Save_clicked()
         QMessageBox::information(this, "Infromation", "File save properly.");
     }
 
+}
+
+void MainWindow::on_pushButton_Play_Original_Track_clicked()
+{
+    if(!guitar_effects->load_from_file(file_name)){
+        QMessageBox::warning(this, "Warning!", "File doesn't load properly!");
+    }
+
+    guitar_effects->set_buffer();
+    guitar_effects->play();
 }
 
 void MainWindow::delay(void){
