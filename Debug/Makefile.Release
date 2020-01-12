@@ -17,13 +17,13 @@ CXXFLAGS      = -fno-keep-inline-dllexport -O2 -std=gnu++11 -Wall -W -Wextra -fe
 INCPATH       = -I..\guitar_effects -I. -I..\SFML-2.5.1\include -IC:\Qt\5.9.8\mingw53_32\include -IC:\Qt\5.9.8\mingw53_32\include\QtWidgets -IC:\Qt\5.9.8\mingw53_32\include\QtGui -IC:\Qt\5.9.8\mingw53_32\include\QtANGLE -IC:\Qt\5.9.8\mingw53_32\include\QtCore -Irelease -I. -IC:\Qt\5.9.8\mingw53_32\mkspecs\win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-s -Wl,-subsystem,windows -mthreads
-LIBS        =        -lmingw32 -LC:\Qt\5.9.8\mingw53_32\lib C:\Qt\5.9.8\mingw53_32\lib\libqtmain.a -LC:\openssl\lib -LC:\Utils\my_sql\my_sql\lib -LC:\Utils\postgresql\pgsql\lib -lshell32 -L..\SFML-2.5.1\lib -L..\SFML-2.5.1\bin -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-network -lsfml-window C:\Qt\5.9.8\mingw53_32\lib\libQt5Widgets.a C:\Qt\5.9.8\mingw53_32\lib\libQt5Gui.a C:\Qt\5.9.8\mingw53_32\lib\libQt5Core.a 
+LIBS        =        -lmingw32 -LC:\Qt\5.9.8\mingw53_32\lib C:\Qt\5.9.8\mingw53_32\lib\libqtmain.a -LC:\openssl\lib -LC:\Utils\my_sql\my_sql\lib -LC:\Utils\postgresql\pgsql\lib -lshell32 -L..\SFML-2.5.1\lib -L..\SFML-2.5.1\bin -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-network -lsfml-window C:\Qt\5.9.8\mingw53_32\lib\libQt5Widgets.a C:\Qt\5.9.8\mingw53_32\lib\libQt5Gui.a C:\Qt\5.9.8\mingw53_32\lib\libQt5Core.a release\myappicon_res.o 
 QMAKE         = C:\Qt\5.9.8\mingw53_32\bin\qmake.exe
 IDC           = idc
 IDL           = midl
 ZIP           = zip -r -9
 DEF_FILE      = 
-RES_FILE      = 
+RES_FILE      = release\myappicon_res.o
 COPY          = copy /y
 SED           = $(QMAKE) -install sed
 COPY_FILE     = copy /y
@@ -73,8 +73,11 @@ DESTDIR_TARGET = release\guitar_effects.exe
 first: all
 all: Makefile.Release  $(DESTDIR_TARGET)
 
-$(DESTDIR_TARGET): ui_mainwindow.h $(OBJECTS) 
+$(DESTDIR_TARGET): ui_mainwindow.h $(OBJECTS) release/myappicon_res.o
 	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) $(OBJECTS)  $(LIBS)
+
+release/myappicon_res.o: ../guitar_effects/myappicon.rc
+	windres -i ..\guitar_effects\myappicon.rc -o release\myappicon_res.o --include-dir=./../guitar_effects $(DEFINES)
 
 qmake: FORCE
 	@$(QMAKE) -o Makefile.Release ..\guitar_effects\guitar_effects.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
@@ -86,6 +89,7 @@ dist:
 
 clean: compiler_clean 
 	-$(DEL_FILE) release\filt.o release\guitar_effects.o release\main.o release\mainwindow.o release\qrc_icon.o release\moc_mainwindow.o
+	-$(DEL_FILE) release\myappicon_res.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash

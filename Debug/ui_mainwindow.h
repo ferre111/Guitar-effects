@@ -49,23 +49,26 @@ public:
     QHBoxLayout *horizontalLayout_4;
     QDial *dial_Delay_Volume;
     QLabel *label_Delay_Volume;
-    QWidget *layoutWidget1;
+    QWidget *widget;
     QVBoxLayout *verticalLayout_4;
     QLabel *label_Distortion;
     QHBoxLayout *horizontalLayout_14;
-    QDial *dial_Distorion_Blend;
-    QLabel *label_Distorion_Blend;
+    QDial *dial_Distortion_Blend;
+    QLabel *label_Distortion_Blend;
+    QHBoxLayout *horizontalLayout_7;
+    QDial *dial_Distortion_Range;
+    QLabel *label;
     QHBoxLayout *horizontalLayout_15;
     QDial *dial_Disortion_Volume;
     QLabel *label_Distorion_Volume;
     QSplitter *splitter;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_6;
     QLabel *label_High_Filter;
     QHBoxLayout *horizontalLayout_6;
     QDial *dial_High_Filter;
     QLabel *label_High_Filter_Freq;
-    QWidget *layoutWidget3;
+    QWidget *layoutWidget2;
     QVBoxLayout *verticalLayout_7;
     QLabel *label_Low_Filter;
     QHBoxLayout *horizontalLayout_8;
@@ -215,12 +218,12 @@ public:
         verticalLayout_5->addLayout(verticalLayout);
 
         splitter_2->addWidget(layoutWidget);
-        layoutWidget1 = new QWidget(splitter_2);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        verticalLayout_4 = new QVBoxLayout(layoutWidget1);
+        widget = new QWidget(splitter_2);
+        widget->setObjectName(QStringLiteral("widget"));
+        verticalLayout_4 = new QVBoxLayout(widget);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         verticalLayout_4->setContentsMargins(0, 0, 0, 0);
-        label_Distortion = new QLabel(layoutWidget1);
+        label_Distortion = new QLabel(widget);
         label_Distortion->setObjectName(QStringLiteral("label_Distortion"));
         sizePolicy.setHeightForWidth(label_Distortion->sizePolicy().hasHeightForWidth());
         label_Distortion->setSizePolicy(sizePolicy);
@@ -232,33 +235,52 @@ public:
 
         horizontalLayout_14 = new QHBoxLayout();
         horizontalLayout_14->setObjectName(QStringLiteral("horizontalLayout_14"));
-        dial_Distorion_Blend = new QDial(layoutWidget1);
-        dial_Distorion_Blend->setObjectName(QStringLiteral("dial_Distorion_Blend"));
-        dial_Distorion_Blend->setMinimum(50);
-        dial_Distorion_Blend->setMaximum(500);
-        dial_Distorion_Blend->setValue(275);
+        dial_Distortion_Blend = new QDial(widget);
+        dial_Distortion_Blend->setObjectName(QStringLiteral("dial_Distortion_Blend"));
+        dial_Distortion_Blend->setMinimum(50);
+        dial_Distortion_Blend->setMaximum(500);
+        dial_Distortion_Blend->setValue(275);
 
-        horizontalLayout_14->addWidget(dial_Distorion_Blend);
+        horizontalLayout_14->addWidget(dial_Distortion_Blend);
 
-        label_Distorion_Blend = new QLabel(layoutWidget1);
-        label_Distorion_Blend->setObjectName(QStringLiteral("label_Distorion_Blend"));
-        label_Distorion_Blend->setFont(font1);
+        label_Distortion_Blend = new QLabel(widget);
+        label_Distortion_Blend->setObjectName(QStringLiteral("label_Distortion_Blend"));
+        label_Distortion_Blend->setFont(font1);
 
-        horizontalLayout_14->addWidget(label_Distorion_Blend);
+        horizontalLayout_14->addWidget(label_Distortion_Blend);
 
 
         verticalLayout_4->addLayout(horizontalLayout_14);
 
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        dial_Distortion_Range = new QDial(widget);
+        dial_Distortion_Range->setObjectName(QStringLiteral("dial_Distortion_Range"));
+        dial_Distortion_Range->setMinimum(100);
+        dial_Distortion_Range->setMaximum(3000);
+        dial_Distortion_Range->setValue(1550);
+
+        horizontalLayout_7->addWidget(dial_Distortion_Range);
+
+        label = new QLabel(widget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setFont(font1);
+
+        horizontalLayout_7->addWidget(label);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_7);
+
         horizontalLayout_15 = new QHBoxLayout();
         horizontalLayout_15->setObjectName(QStringLiteral("horizontalLayout_15"));
-        dial_Disortion_Volume = new QDial(layoutWidget1);
+        dial_Disortion_Volume = new QDial(widget);
         dial_Disortion_Volume->setObjectName(QStringLiteral("dial_Disortion_Volume"));
         dial_Disortion_Volume->setMaximum(1000);
         dial_Disortion_Volume->setValue(1000);
 
         horizontalLayout_15->addWidget(dial_Disortion_Volume);
 
-        label_Distorion_Volume = new QLabel(layoutWidget1);
+        label_Distorion_Volume = new QLabel(widget);
         label_Distorion_Volume->setObjectName(QStringLiteral("label_Distorion_Volume"));
         label_Distorion_Volume->setFont(font1);
 
@@ -267,17 +289,17 @@ public:
 
         verticalLayout_4->addLayout(horizontalLayout_15);
 
-        splitter_2->addWidget(layoutWidget1);
+        splitter_2->addWidget(widget);
         splitter_3->addWidget(splitter_2);
         splitter = new QSplitter(splitter_3);
         splitter->setObjectName(QStringLiteral("splitter"));
         splitter->setOrientation(Qt::Horizontal);
-        layoutWidget2 = new QWidget(splitter);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        verticalLayout_6 = new QVBoxLayout(layoutWidget2);
+        layoutWidget1 = new QWidget(splitter);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        verticalLayout_6 = new QVBoxLayout(layoutWidget1);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
         verticalLayout_6->setContentsMargins(0, 0, 0, 0);
-        label_High_Filter = new QLabel(layoutWidget2);
+        label_High_Filter = new QLabel(layoutWidget1);
         label_High_Filter->setObjectName(QStringLiteral("label_High_Filter"));
         label_High_Filter->setFont(font);
         label_High_Filter->setLayoutDirection(Qt::LeftToRight);
@@ -287,7 +309,7 @@ public:
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        dial_High_Filter = new QDial(layoutWidget2);
+        dial_High_Filter = new QDial(layoutWidget1);
         dial_High_Filter->setObjectName(QStringLiteral("dial_High_Filter"));
         dial_High_Filter->setMinimum(50);
         dial_High_Filter->setMaximum(20000);
@@ -295,7 +317,7 @@ public:
 
         horizontalLayout_6->addWidget(dial_High_Filter);
 
-        label_High_Filter_Freq = new QLabel(layoutWidget2);
+        label_High_Filter_Freq = new QLabel(layoutWidget1);
         label_High_Filter_Freq->setObjectName(QStringLiteral("label_High_Filter_Freq"));
         label_High_Filter_Freq->setFont(font1);
 
@@ -304,13 +326,13 @@ public:
 
         verticalLayout_6->addLayout(horizontalLayout_6);
 
-        splitter->addWidget(layoutWidget2);
-        layoutWidget3 = new QWidget(splitter);
-        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
-        verticalLayout_7 = new QVBoxLayout(layoutWidget3);
+        splitter->addWidget(layoutWidget1);
+        layoutWidget2 = new QWidget(splitter);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        verticalLayout_7 = new QVBoxLayout(layoutWidget2);
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
         verticalLayout_7->setContentsMargins(0, 0, 0, 0);
-        label_Low_Filter = new QLabel(layoutWidget3);
+        label_Low_Filter = new QLabel(layoutWidget2);
         label_Low_Filter->setObjectName(QStringLiteral("label_Low_Filter"));
         label_Low_Filter->setFont(font);
         label_Low_Filter->setLayoutDirection(Qt::LeftToRight);
@@ -320,7 +342,7 @@ public:
 
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
-        dial_Low_Filter = new QDial(layoutWidget3);
+        dial_Low_Filter = new QDial(layoutWidget2);
         dial_Low_Filter->setObjectName(QStringLiteral("dial_Low_Filter"));
         dial_Low_Filter->setMinimum(50);
         dial_Low_Filter->setMaximum(20000);
@@ -328,7 +350,7 @@ public:
 
         horizontalLayout_8->addWidget(dial_Low_Filter);
 
-        label_Low_Filter_Freq = new QLabel(layoutWidget3);
+        label_Low_Filter_Freq = new QLabel(layoutWidget2);
         label_Low_Filter_Freq->setObjectName(QStringLiteral("label_Low_Filter_Freq"));
         label_Low_Filter_Freq->setFont(font1);
 
@@ -337,7 +359,7 @@ public:
 
         verticalLayout_7->addLayout(horizontalLayout_8);
 
-        splitter->addWidget(layoutWidget3);
+        splitter->addWidget(layoutWidget2);
         splitter_3->addWidget(splitter);
 
         verticalLayout_8->addWidget(splitter_3);
@@ -523,7 +545,8 @@ public:
         label_Delay_Level->setText(QApplication::translate("MainWindow", "Delay Level", Q_NULLPTR));
         label_Delay_Volume->setText(QApplication::translate("MainWindow", "Delay Volume", Q_NULLPTR));
         label_Distortion->setText(QApplication::translate("MainWindow", "Distortion", Q_NULLPTR));
-        label_Distorion_Blend->setText(QApplication::translate("MainWindow", "Distortion Blend", Q_NULLPTR));
+        label_Distortion_Blend->setText(QApplication::translate("MainWindow", "Distortion Blend", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "Distortion Range", Q_NULLPTR));
         label_Distorion_Volume->setText(QApplication::translate("MainWindow", "Distortion Volume ", Q_NULLPTR));
         label_High_Filter->setText(QApplication::translate("MainWindow", "High Filter", Q_NULLPTR));
         label_High_Filter_Freq->setText(QApplication::translate("MainWindow", "High Filter Frequency", Q_NULLPTR));

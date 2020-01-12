@@ -9,10 +9,11 @@ Guitar_effects::~Guitar_effects() {
 }
 
 bool Guitar_effects::load_from_file(string file) {
-    if (!buffer.loadFromFile(file)) return 0;
+    bool status;
+    status = buffer.loadFromFile(file);
     samples_p = buffer.getSamples();
     count = buffer.getSampleCount();
-    return 1;
+    return status;
 }
 
 bool Guitar_effects::load_buffer_from_sampels() {

@@ -23,12 +23,10 @@ public:
     ~MainWindow();
 
 private slots:
+    //methods call when user click on particular button
     void on_pushButton_Open_clicked();
-
     void on_pushButton_Play_clicked();
-
     void on_pushButton_Save_clicked();
-
     void on_pushButton_Play_Original_Track_clicked();
 
 private:
@@ -36,6 +34,7 @@ private:
     Guitar_effects *guitar_effects;
     std::string file_name;
 
+    //methods whose get value from knobs and call particular effect method
     void delay(void);
     void distortion(void);
     void filter_LPF(void);

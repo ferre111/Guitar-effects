@@ -83,6 +83,7 @@ void MainWindow::on_pushButton_Save_clicked()
 {
     QString Qfile_name = QFileDialog::getSaveFileName(this, "Save file", QDir::homePath(), "Wav file (*.wav)");
     std::string file_save = Qfile_name.toUtf8().constData();
+
     if(!guitar_effects->save_buffer_to_file(file_save)){
         QMessageBox::warning(this, "Warning!", "File doesn't save properly!");
     } else {
@@ -123,8 +124,6 @@ void MainWindow::distortion(void){
 void MainWindow::filter_LPF(void){
     double f = (ui->dial_Low_Filter->value())/1000.0;
 
-    qDebug() << f << endl;
-
     guitar_effects->filter_LPF_effect(f);
     guitar_effects->load_buffer_from_sampels();
 }
@@ -132,14 +131,6 @@ void MainWindow::filter_LPF(void){
 void MainWindow::filter_HPF(void){
     double f = (ui->dial_High_Filter->value())/1000.0;
 
-    qDebug() << f << endl;
-
     guitar_effects->filter_HPF_effect(f);
     guitar_effects->load_buffer_from_sampels();
 }
-
-//void MainWindow::on_dial_Delay_Period_sliderMoved(int position)
-//{
-//    if (guitar_effects->get_sample_rate()) ui->lcdNumber->display((int)(position / guitar_effects->get_sample_rate()));
-//    qDebug() << guitar_effects->get_sample_rate();
-//}
