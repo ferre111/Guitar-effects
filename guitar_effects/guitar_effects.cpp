@@ -81,13 +81,13 @@ void Guitar_effects::delay_effect(int delay, double factor, double volume) {
     }
 }
 
-void Guitar_effects::distortion_effect(double blend, double volume) {
+void Guitar_effects::distortion_effect(double blend, double volume, double range) {
     sf::Int16 calc{ 0 };
 
     samples_vec.clear();
 
     for (unsigned int i{ 0 }; i < count; i++) {
-        calc = (((2.0 / M_PI * atan(*samples_p) * *samples_p) * blend + (*samples_p / blend)) / 2) * volume;
+        calc = ((2.0 / M_PI * atan(*samples_p / 32767.0 * range) * 32767.0 * blend + (*samples_p / blend)) / 2) * volume;
 
         samples_vec.push_back(calc);
 

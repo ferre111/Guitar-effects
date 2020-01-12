@@ -32,7 +32,7 @@ public:
     void play(void);
 
     void delay_effect(int delay, double factor, double volume);
-    void distortion_effect(double blend, double volume);
+    void distortion_effect(double blend, double volume, double range);
     void filter_LPF_effect(double freq);
     void filter_HPF_effect(double freq);
 };

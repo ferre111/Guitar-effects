@@ -112,10 +112,11 @@ void MainWindow::delay(void){
 }
 
 void MainWindow::distortion(void){
-    double b = (ui->dial_Distorion_Blend->value())/100.0;
+    double b = (ui->dial_Distortion_Blend->value())/100.0;
     double v = (ui->dial_Disortion_Volume->value())/1000.0;
+    double r = (ui->dial_Distortion_Range->value())/100.0;
 
-    guitar_effects->distortion_effect(b, v);
+    guitar_effects->distortion_effect(b, v, r);
     guitar_effects->load_buffer_from_sampels();
 }
 
